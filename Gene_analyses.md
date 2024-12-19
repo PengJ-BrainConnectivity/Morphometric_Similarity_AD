@@ -5,11 +5,11 @@ This file provides code to perform the gene analyses and the gene enrichment cal
 This code was written by Dr Petra Vértes and is taken from [Whitaker and Vértes, PNAS 2016](http://www.pnas.org/content/113/32/9105), please cite that paper if you this code in your own work.
 
 ```
-load('gene_regional_expression_zscored.mat')
+load('gene_regional_expression.mat')
 
 % Note that here we use the left hemisphere only
-nregs=308;
-nregs_lh=152;
+nregs=100;
+nregs_lh=50;
 
 X=gene_regional_expression(1:nregs_lh,:); % Predictors
 Y=horzcat(mytstat_Maast_lh,mytstat_Dublin_lh,mytstat_Cobre_lh); % Response variable
@@ -43,7 +43,7 @@ grid on
 % permutation testing to assess significance of PLS result as a function of
 % the number of components (dim) included:
 
-rep=1000;
+rep=10000;
 for dim=1:8
 [XL,YL,XS,YS,BETA,PCTVAR,MSE,stats]=plsregress(X,Y,dim);
 temp=cumsum(100*PCTVAR(2,1:dim));
@@ -75,11 +75,11 @@ dim=2;
 Bootstrap to get the gene list:
 
 ```
-genes=genes20647; % this needs to be imported first
-geneindex=1:20647;
+genes=genes15633; % this needs to be imported first
+geneindex=1:15633;
 
 %number of bootstrap iterations:
-bootnum=1000;
+bootnum=10000;
 
 % Do PLS in 2 dimensions (with 2 components):
 dim=2;
